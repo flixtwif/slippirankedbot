@@ -1,11 +1,12 @@
 {
   "dependencies": {
     "discord-interactions": "^4.4.0",
+    "dotenv": "^17.4.2",
     "node-fetch": "^3.3.2",
     "slippi-api": "^1.0.3"
   },
   "type": "module",
-   "scripts": {
+  "scripts": {
     "start": "node app.js",
     "register": "node commands.js",
     "dev": "nodemon app.js"
