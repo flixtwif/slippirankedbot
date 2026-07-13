@@ -57,10 +57,11 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 		const code_query = data.options[0].value;
 		const player = await GetSinglePlayerFromConnectCodeArgument(code_query).then(result =>
 		{
-			console.log("hi")
 			let elo = result.rankedProfile.ratingOrdinal.toFixed(2)
 			let rank = result.getRank();
-			console.log(elo, rank)
+			let displayname = result.displayName;
+			console.log("elo:", elo)
+			console.log("rank:", rank)
 			
 			return res.send({
 				type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -70,7 +71,7 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 					{
 					  type: MessageComponentTypes.TEXT_DISPLAY,
 					  
-					  content: `${elo} (${rank})`
+					  content: `**${displayname}** (${code_query.toUpperCase()}): ${elo} (${rank})`
 					}
 				  ]
 				},
@@ -78,6 +79,19 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 	  
 		}).catch(err => {
 			// got err
+			return res.send({
+				type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+				data: {
+				  flags: InteractionResponseFlags.IS_COMPONENTS_V2,
+				  components: [
+					{
+					  type: MessageComponentTypes.TEXT_DISPLAY,
+					  
+					  content: `An error occured. Are you sure **${code_query}** is a valid connect code?`
+					}
+				  ]
+				},
+			});
 		});
 	  
 	  
