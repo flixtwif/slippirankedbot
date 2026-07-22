@@ -143,40 +143,6 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 			);
 		}
 		
-		/*
-		const player = await GetMultiplePlayersFromConnectCodeArgument(code_query).then(result =>
-		{
-			for (let i = 0; i < result.length; i++){
-				let elo = result[i].rankedProfile.ratingOrdinal.toFixed(2)
-				let rank = result[i].getRank();
-				let displayname = result[i].displayName;
-				let connectCode = result[i].connectCode;
-				console.log("elo:", elo)
-				console.log("rank:", rank)
-				str += `${i}. **${displayname}** (${connectCode}): ${elo} (${rank})\n`;
-				
-			}
-			
-			await fetch( `https://discord.com/api/v10/webhooks/${application_id}/${token}/messages/@original`,
-			{
-				method: "PATCH",
-				body: {
-					content: `${str}`
-				},
-			});
-	  
-		}).catch(err => {
-			// got err
-			await fetch ( `https://discord.com/api/v10/webhooks/${application_id}/${token}/messages/@original`, {
-				method: "PATCH";
-				body: {
-					content: `An error occured. `//Are you sure "{code_query}" is a valid connect code?`
-				}
-			},
-			}));
-		
-		*/
-		
 		return;
 	  
 	}
